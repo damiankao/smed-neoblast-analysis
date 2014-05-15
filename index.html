@@ -1,0 +1,74 @@
+<html>
+<head>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="data.js"></script>
+</head>
+<body>
+	<script>
+		var body = d3.select(document.body)
+			.style('margin',0)
+			.style('padding',0);
+
+		var w = window.innerWidth;
+		var h = window.innerHeight;
+		var fillColor = d3.scale.category20();
+		var heightScale = d3.scale.linear().domain([0,1]).range([0,150]);
+		var barWidth = w / data[0][1].length;
+		var panelHeight = 186;
+
+		var svg = body.append('svg')
+			.style('width',w)
+			.style('height',h)
+			.attr('id','charts');
+
+		var panelGroup = svg.selectAll('g .all')
+			.data(data)
+			.enter()
+			.append('g')
+			.attr('class','all')
+			.attr('transform', function(d,i) {
+				return 'translate(0,' + (i * panelHeight) + ')';
+			});
+
+		var panel = panelGroup.selectAll('g .dataset')
+			.data(function(d,i){
+				return d[1];
+			})
+			.enter()
+			.append('g')
+			.attr('class','dataset')
+			.attr('transform', function(d,i) {
+				return 'translate(' + (i * barWidth) + ',30)';
+			});
+
+		var panelText = panelGroup
+			.append('text')
+			.text(function(d,i) {
+				return d[0];
+			})
+			.attr('x',10)
+			.attr('y',24)
+			.style('font-family','sans-serif');
+
+		var rects = panel.selectAll('rect')
+			.data(function(d,i) {
+				return d;
+			})
+			.enter()
+			.append('rect')
+			.attr('fill',function(d, i) {
+				return fillColor(i);
+			})
+			.attr('width',barWidth)
+			.attr('y', function(d,i) {
+				return heightScale(d[0]);
+			})
+			.attr('height',function(d,i) {
+				return heightScale(d[1]);
+			});
+
+		var legendData = [[0, 'Neoblast'],[1, 'Progeny'],[2, 'Differentiated']];
+		
+
+	</script>
+</body>
