@@ -1,7 +1,7 @@
 planarian-neoblast-analysis
 ===========================
 
-IPython notebook for analysis of various planarian neoblast datasets
+IPython notebooks for meta-analysis of planarian neoblast datasets
 
 ### Preliminary analysis
 
