@@ -17,4 +17,4 @@ IPython notebook for analysis of various planarian neoblast datasets
 
 ### Dataset analysis
 
-**[Analysis](damiankao/smed-neoblast-analysis/blob/master/005_analysis.ipynb)**
+**[Analysis](http://nbviewer.ipython.org/github/damiankao/smed-neoblast-analysis/blob/master/005_analysis.ipynb)**
