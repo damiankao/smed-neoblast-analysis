@@ -49,21 +49,30 @@
 			.attr('x',10)
 			.attr('y',24)
 			.style('font-family','sans-serif')
-			.style('font-weight','bold');
+			.style('font-weight','bold')
+			.style('font-size','20px');
+
+		var sigText4 = panelGroup
+                        .append('text')
+                        .text('4 sources')
+                        .attr('x',-145)
+                        .attr('y',20)
+                        .style('font-family','sans-serif')
+                        .attr('transform','rotate(-90)')
 
 		var sigText3 = panelGroup
 			.append('text')
 			.text('3 sources')
 			.attr('x',-145)
-			.attr('y',20)
+			.attr('y',135)
 			.style('font-family','sans-serif')
 			.attr('transform','rotate(-90)')
 
-		var sigText3 = panelGroup
+		var sigText2 = panelGroup
 			.append('text')
 			.text('2 sources')
 			.attr('x',-145)
-			.attr('y',107)
+			.attr('y',320)
 			.style('font-family','sans-serif')
 			.attr('transform','rotate(-90)')
 
@@ -71,7 +80,7 @@
 			.append('text')
 			.text('below threshold')
 			.attr('x',-165)
-			.attr('y',260)
+			.attr('y',495)
 			.style('font-family','sans-serif')
 			.attr('transform','rotate(-90)')
 
