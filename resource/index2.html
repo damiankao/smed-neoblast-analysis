@@ -1,0 +1,119 @@
+<html>
+<head>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="data2.js"></script>
+</head>
+<body>
+	<script>
+		var body = d3.select(document.body)
+			.style('margin',0)
+			.style('padding',0);
+
+		var w = window.innerWidth;
+		var h = window.innerHeight;
+		var fillColor = d3.scale.category20();
+		var heightScale = d3.scale.linear().domain([0,1]).range([0,140]);
+		var barWidth = (w - 90) / numTranscripts;
+		var panelHeight = 190;
+
+		var svg = body.append('svg')
+			.style('width',w)
+			.style('height',1500)
+			.attr('id','charts');
+
+		var panelGroup = svg.selectAll('g .source')
+			.data(data)
+			.enter()
+			.append('g')
+			.attr('class','source')
+			.attr('transform', function(d,i) {
+				return 'translate(0,' + (i * panelHeight) + ')';
+			});
+
+		var panel = panelGroup.selectAll('g .sig')
+			.data(function(d,i){
+				return d[1];
+			})
+			.enter()
+			.append('g')
+			.attr('class','sig')
+			.attr('transform', function(d,i) {
+				return 'translate(' + ((d[0] * barWidth) + ((i + 1) * 30)) + ',0)';
+			});
+
+		var panelText = panelGroup
+			.append('text')
+			.text(function(d,i) {
+				return d[0];
+			})
+			.attr('x',10)
+			.attr('y',24)
+			.style('font-family','sans-serif')
+			.style('font-weight','bold')
+			.style('font-size','20px');
+
+		var sigText4 = panelGroup
+                        .append('text')
+                        .text('4 sources')
+                        .attr('x',-145)
+                        .attr('y',20)
+                        .style('font-family','sans-serif')
+                        .attr('transform','rotate(-90)')
+
+		var sigText3 = panelGroup
+			.append('text')
+			.text('3 sources')
+			.attr('x',-145)
+			.attr('y',135)
+			.style('font-family','sans-serif')
+			.attr('transform','rotate(-90)')
+
+		var sigText2 = panelGroup
+			.append('text')
+			.text('2 sources')
+			.attr('x',-145)
+			.attr('y',330)
+			.style('font-family','sans-serif')
+			.attr('transform','rotate(-90)')
+
+		var sigTextNot = panelGroup
+			.append('text')
+			.text('below threshold')
+			.attr('x',-165)
+			.attr('y',505)
+			.style('font-family','sans-serif')
+			.attr('transform','rotate(-90)')
+
+		var bar = panel.selectAll('g .bar')
+			.data(function(d,i) {
+				return d[1];
+			})
+			.enter()
+			.append('g')
+			.attr('class','bar')
+			.attr('transform', function(d,i) {
+				return 'translate(' + (i * barWidth) + ',40)';
+			});
+
+		var rects = bar.selectAll('rect')
+			.data(function(d,i) {
+				return d;
+			})
+			.enter()
+			.append('rect')
+			.attr('fill',function(d, i) {
+				return fillColor(i);
+			})
+			.attr('width',barWidth)
+			.attr('y', function(d,i) {
+				return heightScale(d[0]);
+			})
+			.attr('height',function(d,i) {
+				return heightScale(d[1]);
+			});
+
+		var legendData = [[0, 'Neoblast'],[1, 'Progeny'],[2, 'Differentiated']];
+		
+
+	</script>
+</body>
