@@ -1,7 +1,7 @@
 <html>
 <head>
-	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-	<script src="data.js"></script>
+	<script src="d3.v3.min.js" charset="utf-8"></script>
+	<script src="spectrum.data.js"></script>
 </head>
 <body>
 	<script>
@@ -12,9 +12,22 @@
 		var w = window.innerWidth;
 		var h = window.innerHeight;
 		var fillColor = d3.scale.category20();
-		var heightScale = d3.scale.linear().domain([0,1]).range([0,150]);
-		var barWidth = w / data[0][1].length;
-		var panelHeight = 186;
+		var heightScale = d3.scale.linear().domain([0,1]).range([0,120]);
+		var barWidth = w / x1_order.length;
+		var panelHeight = 156;
+
+		var labOrder = ['Rajewsky','Pearson','Graveley','H2B RNAi','Irradiation'];
+
+		var constructData = [];
+		var orders = [x1_order, x2_order, x3_order];
+		var order = orders[document.URL.split('?')[1]];
+		for (var i = 0 ; i < labOrder.length ; i ++ ) {
+			var labData = [labOrder[i],[]];
+			for (var a = 0 ; a < order.length ; a++ ) {
+				labData[1].push(data[order[a]][labOrder[i]]);
+			}
+			constructData.push(labData);
+		}
 
 		var svg = body.append('svg')
 			.style('width',w)
@@ -22,7 +35,7 @@
 			.attr('id','charts');
 
 		var panelGroup = svg.selectAll('g .all')
-			.data(data)
+			.data(constructData)
 			.enter()
 			.append('g')
 			.attr('class','all')
